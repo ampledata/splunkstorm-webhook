@@ -23,7 +23,9 @@ def storm():
         '9exBT9VNeluwsmZgfAOEUpWCHLs35sLCv1y_DtcfQ-mEWUtiMqJaFrnHrpdT2zW79xYANdX_hRk=',
         'e0b93ede842211e18101123139335741')
 
-    post_data = flask.request.form.keys()[0]
+    post_data = flask.request.data
+    if not post_data:
+        post_data = flask.request.form.keys()[0]
 
     event_params = {
         'event_text': post_data, 'sourcetype': sourcetype, 'source': source}
