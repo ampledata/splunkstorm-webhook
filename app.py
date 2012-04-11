@@ -1,4 +1,18 @@
 #!/usr/bin/env python
+"""Webhook for Splunk Storm.
+
+Accepts POST requests with any form data and proxies them to the Splunk Storm
+API.
+
+Usage
+  1. Set Heroku config vars for your Splunk Storm Project:
+    $ heroku config:add SPLUNKSTORM_ACCESS_TOKEN=xxx
+    $ heroku config:add SPLUNKSTORM_PROJECT_ID=xxx
+  2. Deploy to Heroku.
+"""
+__author__ = 'Greg Albrecht <gba@splunk.com>'
+__copyright__ = 'Copyright 2012 Splunk, Inc.'
+__license__ = 'Apache 2.0 License'
 
 
 import base64
@@ -16,12 +30,13 @@ app = flask.Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def storm():
+    """Endpoint handler for POST requests."""
     sourcetype = 'generic_single_line'
     source = 'webhook'
 
     log = storm_log.StormLog(
-        '9exBT9VNeluwsmZgfAOEUpWCHLs35sLCv1y_DtcfQ-mEWUtiMqJaFrnHrpdT2zW79xYANdX_hRk=',
-        'e0b93ede842211e18101123139335741')
+        os.environ['SPLUNKSTORM_ACCESS_TOKEN'],
+        os.environ['SPLUNKSTORM_PROJECT_ID'])
 
     post_data = flask.request.data
     if not post_data:
