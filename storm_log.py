@@ -1,11 +1,6 @@
 import urllib
 import urllib2
 
-# Fill the access_token and project_id values from Storm UI
-# You'll need to have an existing account with Splunk Storm
-# http://www.splunkstorm.com/
-ACCESS_TOKEN = '<your access token>'
-PROJECT_ID = '<project id>'
 
 class StormLog(object):
     """A simple example class to send logs to a Splunk Storm project.
@@ -39,16 +34,3 @@ class StormLog(object):
         except (IOError, OSError), ex:
             # An error occured during URL opening or reading
             raise
-
-
-# Example
-# Setup the example logger
-# Arguments are your access token and the project ID
-log = StormLog(ACCESS_TOKEN, PROJECT_ID)
-
-# Send a log; will pick up the default value for ``source``.
-log.send('Apr 1 2012 18:47:23 UTC host57 action=supply_win amount=5710.3',
-         sourcetype='syslog', host='host57')
-# Will pick up the 'default' value for ``host``.
-log.send('Apr 1 2012 18:47:26 UTC host44 action=deliver from=foo@bar.com to=narwin@splunkstorm.com',
-         sourcetype='syslog')

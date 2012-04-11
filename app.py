@@ -1,26 +1,36 @@
+#!/usr/bin/env python
+
+
+import base64
 import datetime
 import os
 
 import flask
+import simplejson
 
 import storm_log
 
+
 app = flask.Flask(__name__)
 
-@app.route('/')
-def hello():
-    return "Hello from Python!"
 
-@app.route('/storm')
+@app.route('/', methods=['POST'])
 def storm():
-    log = StormLog(
-        '9exBT9VNeluwsmZgfAOEUpWCHLs35sLCv1y_DtcfQ-mEWUtiMqJaFrnHrpdT2zW79xYANdX_hRk=',
-        'c7570d5a745411e1810e123139335bf7')
+    sourcetype = 'generic_single_line'
+    source = 'webhook'
 
-    ts = datetime.now().isoformat()
-    log.send("%s hello world" % ts)
+    log = storm_log.StormLog(
+        '9exBT9VNeluwsmZgfAOEUpWCHLs35sLCv1y_DtcfQ-mEWUtiMqJaFrnHrpdT2zW79xYANdX_hRk=',
+        'e0b93ede842211e18101123139335741')
+
+    post_data = flask.request.form.keys()[0]
+
+    event_params = {
+        'event_text': post_data, 'sourcetype': sourcetype, 'source': source}
+
+    return log.send(**event_params)
 
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
