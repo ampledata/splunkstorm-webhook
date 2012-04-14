@@ -2,7 +2,7 @@ About
 =====
 This repository contains a small [Flask](http://flask.pocoo.org/) app that
 acts as a [Webhook](http://www.webhooks.org/). When this app receives a HTTP
-POST it will deserialize the contents and convert the into a Splunk Storm log
+POST it will deserialize the form data and convert it into a Splunk Storm log
 event.
 
 Requirements
@@ -54,7 +54,9 @@ results](http://dl.dropbox.com/u/4036736/Screenshots/2nfd.png)
 
 Author
 ======
-Greg Albrecht <gba@splunk.com> http://ampledata.org/
+Greg Albrecht <gba@splunk.com> 
+
+Website: http://ampledata.org/
 
 License
 =======
