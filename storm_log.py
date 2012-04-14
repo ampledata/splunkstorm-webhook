@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+"""Module for sending event data to Splunk Storm.
+
+Derived from https://github.com/splunk/storm-examples
+"""
+__author__ = 'Andrew Fort <afort@splunk.com>'
+__license__ = 'Apache License 2.0'
+__copyright__ = 'Copyright 2012 Splunk, Inc.'
+
+
 import urllib
 import urllib2
 
