@@ -15,12 +15,9 @@ __copyright__ = 'Copyright 2012 Splunk, Inc.'
 __license__ = 'Apache License 2.0'
 
 
-import base64
-import datetime
 import os
 
 import flask
-import simplejson
 
 import storm_log
 
