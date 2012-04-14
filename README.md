@@ -21,14 +21,20 @@ To use this app on Heroku:
    ID](http://docs.splunk.com/Documentation/Storm/latest/User/UseStormsRESTAPI).
 2. Install & Configure the [heroku toolbelt](https://toolbelt.herokuapp.com/).
 3. From within this directory create a Heroku app: 
+
         heroku create --stack cedar
+
 4. Set your Splunk Storm Access Token and Project ID as [Heroku Config
    Variables](https://devcenter.heroku.com/articles/config-vars):
+
         heroku config:add SPLUNKSTORM_ACCESS_TOKEN=xxx
         heroku config:add SPLUNKSTORM_PROJECT_ID=xxx
+
 5. Push this app to [Heroku's git
    repository](https://devcenter.heroku.com/articles/git):
+
         git push heroku master
+
 6. Your app will now be accessible to HTTP POST requests!
 
 Testing
