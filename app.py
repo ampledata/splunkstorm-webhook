@@ -12,7 +12,7 @@ Usage
 """
 __author__ = 'Greg Albrecht <gba@splunk.com>'
 __copyright__ = 'Copyright 2012 Splunk, Inc.'
-__license__ = 'Apache 2.0 License'
+__license__ = 'Apache License 2.0'
 
 
 import base64
