@@ -25,17 +25,20 @@ import werkzeug
 import storm_log
 
 
-def send_log(event_params):
+APP = flask.Flask(__name__)
+
+
+def _send_log(event_params):
+    """Wrapper for storm_log.StormLog().
+    Sets Token and Project params from env.
+    """
     log = storm_log.StormLog(
         os.environ['SPLUNKSTORM_ACCESS_TOKEN'],
         os.environ['SPLUNKSTORM_PROJECT_ID'])
     return log.send(**event_params)
 
 
-app = flask.Flask(__name__)
-
-
-@app.route('/', methods=['POST'])
+@APP.route('/', methods=['POST'])
 def storm():
     """Endpoint handler for POST requests."""
     sourcetype = 'generic_single_line'
@@ -48,13 +51,17 @@ def storm():
     event_params = {
         'event_text': post_data, 'sourcetype': sourcetype, 'source': source}
 
-    return send_log(event_params)
+    return _send_log(event_params)
 
 
-@app.route('/ckl/', methods=['POST'])
+@APP.route('/ckl/', methods=['POST'])
 def ckl():
+    """ckl compatible endpoint.
+
+    Supports receiving ckl POSTs, including script log.
+    """
     if flask.request.form['secret'] != os.environ['CKL_SECRET_KEY']:
-        abort(401)
+        flask.abort(401)
 
     sourcetype = 'generic_multi_line'
     source = 'ckl'
@@ -64,7 +71,7 @@ def ckl():
 
     hostname = flask.request.form.get('hostname', '')
     msg = flask.request.form.get('msg', '')
-    ts = flask.request.form.get('ts', 0)
+    time_stamp = flask.request.form.get('ts', 0)
     username = flask.request.form.get('username', '')
 
     if script:
@@ -72,17 +79,17 @@ def ckl():
         script.save(f_name)
         script = open(f_name).read()
 
-    event_data = ' '.join([ts, hostname, remote_ip, username, msg, script])
+    event_data = ' '.join(
+        [time_stamp, hostname, remote_ip, username, msg, script])
 
     event_params = {
         'event_text': event_data, 'sourcetype': sourcetype, 'source': source}
 
-    send_log(event_params)
+    _send_log(event_params)
 
     return 'saved\n'
 
 
-
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    PORT = int(os.environ.get('PORT', 5000))
+    APP.run(host='0.0.0.0', port=PORT, debug=True)
