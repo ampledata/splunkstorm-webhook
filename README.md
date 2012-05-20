@@ -5,6 +5,10 @@ acts as a [Webhook](http://www.webhooks.org/). When this app receives a HTTP
 POST it will deserialize the form data and convert it into a Splunk Storm log
 event.
 
+This app also supports receiving POSTs from the
+[Cloudkick Changelog Tool 'ckl'](https://support.cloudkick.com/Ckl)
+via the */ckl/* endpoint.
+
 Requirements
 ============
 
@@ -19,7 +23,7 @@ To use this app on Heroku:
 
 1. Retrieve your [Splunk Storm Access Token and Project
    ID](http://docs.splunk.com/Documentation/Storm/latest/User/UseStormsRESTAPI).
-2. Install & Configure the [heroku toolbelt](https://toolbelt.herokuapp.com/).
+2. Install & Configure the [Heroku Toolbelt](https://toolbelt.herokuapp.com/).
 3. From within this directory create a Heroku app: 
 
         heroku create --stack cedar
@@ -28,7 +32,11 @@ To use this app on Heroku:
    Variables](https://devcenter.heroku.com/articles/config-vars):
 
         heroku config:add SPLUNKSTORM_ACCESS_TOKEN=xxx
-        heroku config:add SPLUNKSTORM_PROJECT_ID=xxx
+        heroku config:add SPLUNKSTORM_PROJECT_ID=yyy
+
+5. *Optional* Set a secret key for use with ckl clients:
+
+        heroku config:add CKL_SECRET_KEY=zzz
 
 5. Push this app to [Heroku's git
    repository](https://devcenter.heroku.com/articles/git):
@@ -65,3 +73,6 @@ Apache License 2.0.
 Copyright
 =========
 Copyright 2012 Splunk, Inc.
+
+ckl webapp derived from Cloudkick's webapp.py. Copyright 2012 Cloudkick,
+Inc.
