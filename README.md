@@ -68,7 +68,7 @@ Github
 1. Add a **WebHook URL** to a projects **Service Hooks**:
         https://hot-dogs-123.herokuapp.com/
 
-![http://dl.dropbox.com/u/4036736/Screenshots/_z4j.png]
+!(Service Hook Screenshot)[http://dl.dropbox.com/u/4036736/Screenshots/_z4j.png]
 
 
 Testing
