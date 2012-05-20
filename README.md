@@ -17,8 +17,8 @@ Requirements
 3. A server on which to host this app.
   - Possible servers are local, Heroku, App Engine, et al.
 
-Usage
-=====
+Installation
+============
 To use this app on Heroku:
 
 1. Retrieve your [Splunk Storm Access Token and Project
@@ -44,6 +44,32 @@ To use this app on Heroku:
         git push heroku master
 
 6. Your app will now be accessible to HTTP POST requests!
+
+
+Usage
+=====
+
+With ckl
+--------
+
+1. Set ckl's cloudkick.conf configuration to use this endpoint:
+
+        ckl_endpoint https://hot-dogs-123.herokuapp.com/ckl
+        secret my-secret
+
+2. ckl away:
+
+        ckl -m 'this is a test message'
+        ckl -sm 'this is a script recording session'
+
+Github
+------
+
+1. Add a **WebHook URL** to a projects **Service Hooks**:
+        https://hot-dogs-123.herokuapp.com/
+
+![http://dl.dropbox.com/u/4036736/Screenshots/_z4j.png]
+
 
 Testing
 =======
