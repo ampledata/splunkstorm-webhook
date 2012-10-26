@@ -92,3 +92,6 @@ Apache License 2.0.
 Copyright 2012 Splunk, Inc.
 
 ckl endpoint derived from Cloudkick's webapp.py. Copyright 2012 Cloudkick, Inc.
+
+# Version
+Splunk Storm Webhook 2.0.0
